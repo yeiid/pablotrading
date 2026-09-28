@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — actualizar cifras | davidtrading</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #070b12; color: #f1f5f9; max-width: 760px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 1.3rem; } p { color: #94a3b8; font-size: 0.9rem; }
+    fieldset { border: 1px solid #1e293b; border-radius: 12px; margin: 16px 0; padding: 16px; }
+    legend { color: #22d3ee; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; }
+    label { display: block; font-size: 0.8rem; color: #94a3b8; margin: 10px 0 4px; }
+    input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #1e293b; background: #0d1320; color: #fff; font-size: 0.95rem; box-sizing: border-box; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    button { background: linear-gradient(135deg,#22d3ee,#a78bfa); border: none; border-radius: 10px; padding: 12px 20px; font-weight: 700; cursor: pointer; margin-top: 12px; }
+    pre { background: #0d1320; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; overflow: auto; font-size: 0.78rem; }
+  </style>
+</head>
+<body>
+  <h1>Admin local — actualizar cifras (solo dev)</h1>
+  <p>Edita los campos y pulsa <b>Generar JSON</b>. Copia el resultado en <code>src/data/content.json</code> (secciones <code>heroStats</code> y <code>comparativa</code>). Este archivo no se despliega: úsalo con <code>npm run dev</code>.</p>
+  <fieldset><legend>Hero stats</legend><div id="heroFields"></div></fieldset>
+  <fieldset><legend>Comparativa (riesgo)</legend><div id="compFields"></div></fieldset>
+  <button id="gen" type="button">Generar JSON</button>
+  <pre id="out">…</pre>
+  <script type="module">
+    const res = await fetch('/src/data/content.json').then((r) => r.json());
+    const heroBox = document.getElementById('heroFields');
+    res.heroStats.forEach((s, i) => {
+      heroBox.insertAdjacentHTML('beforeend',
+        '<div class="row"><div><label>Valor ' + (i + 1) + '</label><input data-h="' + i + '" data-k="value" value="' + s.value + '"></div>' +
+        '<div><label>Etiqueta ' + (i + 1) + '</label><input data-h="' + i + '" data-k="label" value="' + s.label + '"></div></div>');
+    });
+    const compBox = document.getElementById('compFields');
+    res.comparativa.forEach((r, i) => {
+      compBox.insertAdjacentHTML('beforeend',
+        '<label>' + r.estrategia + ' — riesgo</label><input data-c="' + i + '" value="' + r.riesgo + '">');
+    });
+    document.getElementById('gen').addEventListener('click', () => {
+      document.querySelectorAll('[data-h]').forEach((el) => {
+        res.heroStats[+el.dataset.h][el.dataset.k] = el.value;
+      });
+      document.querySelectorAll('[data-c]').forEach((el) => {
+        res.comparativa[+el.dataset.c].riesgo = el.value;
+      });
+      document.getElementById('out').textContent = JSON.stringify({ heroStats: res.heroStats, comparativa: res.comparativa }, null, 2);
+    });
+  </script>
+</body>
+</html>

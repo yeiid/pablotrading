@@ -1,0 +1,121 @@
+/* responsive.css — sistema responsive completo (ADITIVO: se importa DESPUÉS de global.css) */
+
+/* Base: sin scroll-X, safe-areas, tap targets */
+html, body { overflow-x: clip; }
+body { padding-top: var(--safe-t); }
+.container { padding-left: var(--container-pad); padding-right: var(--container-pad); }
+a, button { min-height: var(--tap-min); }
+.nav-links a { min-height: var(--tap-min); display: inline-flex; align-items: center; }
+
+/* Hamburguesa: oculta en desktop, visible en móvil */
+.mobile-nav-btn {
+  display: none;
+  width: var(--tap-min); height: var(--tap-min);
+  border-radius: 12px;
+  border: 1px solid rgba(30, 41, 59, 0.9);
+  background: rgba(26, 37, 56, 0.6);
+  color: #f1f5f9;
+  font-size: 1.3rem; line-height: 1;
+  cursor: pointer;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.mobile-nav-btn:focus-visible, .mobile-nav a:focus-visible, .mobile-nav button:focus-visible {
+  outline: 2px solid #22d3ee; outline-offset: 2px;
+}
+
+/* Drawer móvil */
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 2000;
+  visibility: hidden; opacity: 0;
+  transition: opacity 0.25s ease, visibility 0.25s;
+}
+.mobile-nav.is-open { visibility: visible; opacity: 1; }
+.mobile-nav-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(4, 8, 14, 0.7);
+}
+.mobile-nav-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(320px, 84vw);
+  background: #0d1320;
+  border-left: 1px solid rgba(34, 211, 238, 0.25);
+  padding: calc(16px + var(--safe-t)) 20px calc(20px + var(--safe-b));
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex; flex-direction: column; gap: 6px;
+  overflow-y: auto;
+}
+.mobile-nav.is-open .mobile-nav-panel { transform: translateX(0); }
+.mobile-nav-panel a {
+  color: #e2e8f0; text-decoration: none;
+  font-weight: 600; font-size: 1rem;
+  padding: 12px 14px; border-radius: 10px;
+  display: flex; align-items: center;
+}
+.mobile-nav-panel a:hover { background: rgba(34, 211, 238, 0.12); }
+.mobile-nav-close {
+  align-self: flex-end;
+  width: var(--tap-min); height: var(--tap-min);
+  border-radius: 10px; border: 1px solid var(--border);
+  background: transparent; color: #94a3b8; font-size: 1.2rem; cursor: pointer;
+}
+.mobile-nav-cta {
+  margin-top: 12px; padding: 12px 14px; border-radius: 12px;
+  background: linear-gradient(135deg, #22d3ee, #a78bfa);
+  color: #070b12 !important; font-weight: 700; justify-content: center;
+}
+body.nav-open { overflow: hidden; }
+
+/* Hero: evita CLS + grid flexible */
+.hero-visual img { aspect-ratio: 16 / 7; }
+.hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Rendimiento: secciones largas no bloquean render */
+.strategy-card, .risk-card, .tip-item { content-visibility: auto; contain-intrinsic-size: auto 320px; }
+
+/* Tabla → cards en móvil (usa data-label, mismo DOM) */
+@media (max-width: 768px) {
+  .mobile-nav-btn { display: inline-flex; }
+  .hero-visual img { aspect-ratio: 16 / 10; }
+  #comparativa thead { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  #comparativa table, #comparativa tbody, #comparativa tr, #comparativa td { display: block; width: 100%; }
+  #comparativa tr {
+    border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 10px; padding: 6px 14px; background: var(--bg-card);
+  }
+  #comparativa td { border: none; padding: 8px 0 8px 46%; position: relative; white-space: normal; text-align: left; }
+  #comparativa td::before {
+    content: attr(data-label);
+    position: absolute; left: 0; top: 8px; width: 42%;
+    font-size: 0.68rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+  #comparativa td:first-child { font-size: 0.95rem; padding-top: 10px; }
+}
+
+/* Hero stats apilables en pantallas muy estrechas */
+@media (max-width: 480px) {
+  .hero-stats { grid-template-columns: 1fr; gap: 10px; }
+  .hero-stats .stat { max-width: none; }
+}
+
+/* Back-to-top + CTA TikTok móvil */
+.back-to-top {
+  position: fixed; right: 16px; bottom: calc(16px + var(--safe-b)); z-index: 1500;
+  width: var(--tap-min); height: var(--tap-min); border-radius: 12px;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  background: rgba(13, 19, 32, 0.9); color: #22d3ee; font-size: 1.2rem; cursor: pointer;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+.back-to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+
+/* Accesibilidad: focus visible global + respeta reduced-motion (efectos desktop intactos si no se pide reducir) */
+:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .money-bill { animation: none !important; }
+  .fade-in { transition: none !important; opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+  .focus-panel, .ve-panel, .mobile-nav-panel { transition: none !important; }
+}

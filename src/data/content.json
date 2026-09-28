@@ -1,0 +1,102 @@
+{
+  "_doc": "EDITA ESTE FICHERO para actualizar cifras/textos de la UI. Vite recarga solo al guardar. No toques componentes.",
+  "site": {
+    "brand": "davidtrading.com",
+    "tiktok": "https://www.tiktok.com/@davidtrading2?_r=1&_t=ZS-9A2YYFo6UKq",
+    "tiktokTooltip": "¡Ve a seguirnos, corre!!",
+    "url": "https://davidtrading.com/"
+  },
+  "hero": {
+    "titleHtml": "Estrategias de Trading<br>en el <span>Mercado Crypto</span>",
+    "desc": "Una guía clara, estructurada y profesional de las principales estrategias que utilizan los traders para operar en el mercado de criptomonedas. Desde enfoques pasivos hasta técnicas avanzadas.",
+    "visual": "/assets/hero-chart.jpg"
+  },
+  "heroStats": [
+    {
+      "value": "10+",
+      "label": "Estrategias explicadas"
+    },
+    {
+      "value": "24/7",
+      "label": "Mercado abierto"
+    },
+    {
+      "value": "Alta",
+      "label": "Volatilidad típica"
+    }
+  ],
+  "comparativaNota": "* El riesgo de mercado es bajo, pero el riesgo operativo y de contraparte puede ser relevante.",
+  "comparativa": [
+    {
+      "estrategia": "HODLing",
+      "nivel": "Principiante",
+      "horizonte": "Meses – Años",
+      "tiempo": "Muy bajo",
+      "riesgo": "Medio"
+    },
+    {
+      "estrategia": "DCA",
+      "nivel": "Principiante",
+      "horizonte": "Semanas – Años",
+      "tiempo": "Muy bajo",
+      "riesgo": "Bajo – Medio"
+    },
+    {
+      "estrategia": "Swing Trading",
+      "nivel": "Intermedio",
+      "horizonte": "Días – Semanas",
+      "tiempo": "Medio",
+      "riesgo": "Medio"
+    },
+    {
+      "estrategia": "Day Trading",
+      "nivel": "Avanzado",
+      "horizonte": "Intradía",
+      "tiempo": "Alto",
+      "riesgo": "Alto"
+    },
+    {
+      "estrategia": "Scalping",
+      "nivel": "Avanzado",
+      "horizonte": "Segundos – Minutos",
+      "tiempo": "Muy alto",
+      "riesgo": "Alto"
+    },
+    {
+      "estrategia": "Trend Following",
+      "nivel": "Intermedio",
+      "horizonte": "Días – Meses",
+      "tiempo": "Medio",
+      "riesgo": "Medio"
+    },
+    {
+      "estrategia": "Breakout",
+      "nivel": "Intermedio",
+      "horizonte": "Horas – Días",
+      "tiempo": "Medio",
+      "riesgo": "Medio – Alto"
+    },
+    {
+      "estrategia": "Mean Reversion / Rango",
+      "nivel": "Intermedio",
+      "horizonte": "Horas – Días",
+      "tiempo": "Medio",
+      "riesgo": "Medio"
+    },
+    {
+      "estrategia": "Grid Trading",
+      "nivel": "Intermedio",
+      "horizonte": "Automático",
+      "tiempo": "Bajo (con bot)",
+      "riesgo": "Medio"
+    },
+    {
+      "estrategia": "Arbitraje",
+      "nivel": "Avanzado",
+      "horizonte": "Segundos – Minutos",
+      "tiempo": "Alto",
+      "riesgo": "Bajo – Medio*"
+    }
+  ],
+  "updatedAt": "2026-09-28"
+}

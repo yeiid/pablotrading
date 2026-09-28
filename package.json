@@ -1,0 +1,17 @@
+{
+  "name": "davidtrading-vite",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "davidtrading.com migrado a Vite — componentes + cifras editables en JSON, estilos/efectos 100% preservados",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run validate && vite build",
+    "preview": "vite preview --port 4173",
+    "validate": "node scripts/validate-content.mjs",
+    "update-stats": "echo 'Edita src/data/content.json (heroStats, comparativa, site) y guarda: Vite recarga solo. Admin dev: /admin.html'"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
